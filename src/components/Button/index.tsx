@@ -1,11 +1,17 @@
 import React from 'react';
+import {Container, Text} from './styles';
 
-import {View} from 'react-native';
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+};
 
-// import { Container } from './styles';
-
-const Button: React.FC = () => {
-  return <View />;
+const Button: React.FC<ButtonProps> = ({title, onPress}) => {
+  return (
+    <Container onPress={onPress}>
+      <Text>{title}</Text>
+    </Container>
+  );
 };
 
 export default Button;

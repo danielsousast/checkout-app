@@ -18,6 +18,5 @@ export const Image = styled.Image`
 `;
 
 export const PriceWrapper = styled.View`
-  flex-direction: row;
-  margin-top: 16px;
+  margin-top: 4px;
 `;

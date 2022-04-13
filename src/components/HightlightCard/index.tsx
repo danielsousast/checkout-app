@@ -1,4 +1,5 @@
 import React from 'react';
+import AddButton from '../AddButton';
 import {
   ProductDescription,
   ProductPrice,
@@ -23,6 +24,7 @@ const HightlightCard: React.FC = () => {
       </ProductDescription>
       <PriceWrapper>
         <ProductPrice>10995</ProductPrice>
+        <AddButton />
       </PriceWrapper>
     </Container>
   );

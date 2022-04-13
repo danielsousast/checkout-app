@@ -1,6 +1,11 @@
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
-export const Container = styled.View`
+type ContainerProps = {
+  bgColor?: string;
+  withShadow: boolean;
+};
+
+export const Container = styled.View<ContainerProps>`
   width: 100%;
   height: 108px;
   position: absolute;
@@ -9,12 +14,16 @@ export const Container = styled.View`
   padding: 0 16px;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
-  background-color: ${({theme}) => theme.colors.white};
-  shadow-color: ${({theme}) => theme.colors.black};
-  shadow-offset: 0px -4px;
-  shadow-opacity: 0.1;
-  shadow-radius: 2.65px;
-  elevation: 8;
+  background-color: ${({theme, bgColor}) => bgColor || theme.colors.white};
+  ${({withShadow}) =>
+    withShadow &&
+    css`
+      shadow-color: ${({theme}) => theme.colors.black};
+      shadow-offset: 0px -4px;
+      shadow-opacity: 0.1;
+      shadow-radius: 2.65px;
+      elevation: 8;
+    `}
 `;
 
 export const Button = styled.TouchableOpacity`

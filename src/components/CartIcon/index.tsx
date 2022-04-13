@@ -2,11 +2,13 @@ import React from 'react';
 import BagIcon from '../../assets/bag.svg';
 import {Container, Badge, BadgeText} from './style';
 
-// import { Container } from './styles';
+type CartIconProps = {
+  onPress: () => void;
+};
 
-const CartIcon: React.FC = () => {
+const CartIcon: React.FC<CartIconProps> = ({onPress}) => {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <BagIcon />
       <Badge>
         <BadgeText>3</BadgeText>

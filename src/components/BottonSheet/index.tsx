@@ -1,14 +1,21 @@
 import React from 'react';
 import {Container, Button, Text} from './styles';
 
-type ButtoBittonSheetProps = {
+type BottomSheet = {
   title: string;
+  withShadow?: boolean;
   onPress: () => void;
+  bgColor?: string;
 };
 
-const BittonSheet: React.FC<ButtoBittonSheetProps> = ({title, onPress}) => {
+const BottomSheet: React.FC<BottomSheet> = ({
+  title,
+  onPress,
+  bgColor,
+  withShadow = true,
+}) => {
   return (
-    <Container>
+    <Container withShadow={withShadow} bgColor={bgColor}>
       <Button onPress={onPress}>
         <Text>{title ?? 'Default'}</Text>
       </Button>
@@ -16,4 +23,4 @@ const BittonSheet: React.FC<ButtoBittonSheetProps> = ({title, onPress}) => {
   );
 };
 
-export default BittonSheet;
+export default BottomSheet;

@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {Fragment} from 'react';
 import {FlatGrid} from 'react-native-super-grid';
 import BottonSheet from '../../components/BottonSheet';
@@ -26,18 +27,21 @@ const categories = [
 ];
 
 const Home: React.FC = () => {
+  const {navigate} = useNavigation();
   function renderItem({_item}: any) {
     return <ListCard onAddButtonPress={() => {}} />;
   }
 
-  function onGoToCardPress() {}
+  function onGoToCardPress() {
+    navigate('Cart' as any);
+  }
 
   return (
     <Fragment>
       <Container>
         <Header>
           <ScreenTitle>Produtos</ScreenTitle>
-          <CartIcon />
+          <CartIcon onPress={onGoToCardPress} />
         </Header>
         <ScrollWrapper>
           <CategoryTitle>FILTRAR POR CATEGORIA</CategoryTitle>
@@ -51,7 +55,7 @@ const Home: React.FC = () => {
         <ScrollWrapper>
           <HightlightScroll>
             {categories.map(category => (
-              <HightlightCard key={category.id} />
+              <HightlightCard key={category.id} onAddToCartPress={() => {}} />
             ))}
           </HightlightScroll>
         </ScrollWrapper>

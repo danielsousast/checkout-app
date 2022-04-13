@@ -42,3 +42,9 @@ export const ProductTag = styled.Text`
   margin-top: 7px;
   margin-bottom: 7px;
 `;
+
+export const ProductCartPrice = styled.Text`
+  font-weight: 700;
+  font-size: 16px;
+  color: #8775fe;
+`;

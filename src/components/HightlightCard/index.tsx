@@ -8,7 +8,11 @@ import {
 } from '../Typography';
 import {Container, Image, PriceWrapper} from './styles';
 
-const HightlightCard: React.FC = () => {
+type HightlightCardProps = {
+  onAddToCartPress: () => void;
+};
+
+const HightlightCard: React.FC<HightlightCardProps> = ({onAddToCartPress}) => {
   return (
     <Container>
       <Image
@@ -24,7 +28,7 @@ const HightlightCard: React.FC = () => {
       </ProductDescription>
       <PriceWrapper>
         <ProductPrice>10995</ProductPrice>
-        <AddButton />
+        <AddButton onPress={onAddToCartPress} />
       </PriceWrapper>
     </Container>
   );

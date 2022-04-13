@@ -6,6 +6,7 @@ type BottomSheet = {
   withShadow?: boolean;
   onPress: () => void;
   bgColor?: string;
+  buttonColor?: string;
 };
 
 const BottomSheet: React.FC<BottomSheet> = ({
@@ -13,10 +14,11 @@ const BottomSheet: React.FC<BottomSheet> = ({
   onPress,
   bgColor,
   withShadow = true,
+  buttonColor,
 }) => {
   return (
     <Container withShadow={withShadow} bgColor={bgColor}>
-      <Button onPress={onPress}>
+      <Button onPress={onPress} buttonColor={buttonColor}>
         <Text>{title ?? 'Default'}</Text>
       </Button>
     </Container>

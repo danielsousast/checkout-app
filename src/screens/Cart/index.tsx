@@ -4,6 +4,7 @@ import BittonSheet from '../../components/BottonSheet';
 import IntemCart from '../../components/IntemCart';
 import {ProductTitle, SectionTitle} from '../../components/Typography';
 import theme from '../../global/theme';
+import EmptyCart from './EmptyCart';
 import {
   BackButton,
   BackIcon,
@@ -15,7 +16,13 @@ import {
 } from './styles';
 
 const Cart: React.FC = () => {
-  const {goBack} = useNavigation();
+  const {goBack, navigate} = useNavigation();
+  const isEmpty = false;
+
+  function onFinishSell() {
+    navigate('Success' as any);
+  }
+
   function renderItem() {
     return <IntemCart />;
   }
@@ -25,7 +32,6 @@ const Cart: React.FC = () => {
         <BackButton onPress={goBack}>
           <BackIcon />
         </BackButton>
-
         <HeaderTitle>CARRINHO</HeaderTitle>
       </Header>
       <SectionTitle>Meu carrinho</SectionTitle>
@@ -37,9 +43,10 @@ const Cart: React.FC = () => {
         <ProductTitle>Total</ProductTitle>
         <ProductTitle>450</ProductTitle>
       </TotalWrapper>
+      {isEmpty && <EmptyCart onPress={function (): void {}} />}
       <BittonSheet
         title="FINALIZAR COMPRA"
-        onPress={() => {}}
+        onPress={onFinishSell}
         bgColor={theme.colors.background}
         withShadow={false}
       />

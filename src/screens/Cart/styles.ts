@@ -41,7 +41,12 @@ export const BackIcon = styled(EntypoIcon).attrs(({theme}) => ({
   color: theme.colors.lightText,
 }))``;
 
-export const List = styled.FlatList`
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    padding: 16,
+  },
+})`
   margin-top: 40px;
 `;
 
@@ -52,4 +57,20 @@ export const TotalWrapper = styled.View`
   padding: 10px 16px;
   justify-content: space-between;
   margin-bottom: 80px;
+`;
+
+export const EmptyWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: 0 26px;
+`;
+
+export const EmptyDescription = styled.Text`
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 14px;
+  color: ${({theme}) => theme.colors.lightText};
 `;

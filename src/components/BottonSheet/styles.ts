@@ -5,6 +5,10 @@ type ContainerProps = {
   withShadow: boolean;
 };
 
+type ButtonProps = {
+  buttonColor?: string;
+};
+
 export const Container = styled.View<ContainerProps>`
   width: 100%;
   height: 108px;
@@ -26,12 +30,13 @@ export const Container = styled.View<ContainerProps>`
     `}
 `;
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity<ButtonProps>`
   justify-content: center;
   align-items: center;
   height: 50px;
   border-radius: 50px;
-  background-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({theme, buttonColor}) =>
+    buttonColor ?? theme.colors.primary};
 `;
 
 export const Text = styled.Text`

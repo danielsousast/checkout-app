@@ -1,12 +1,12 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components/native';
 import theme from './global/theme';
-import Home from './screens/Home';
+import {Navigation} from './navigation';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <Navigation />
     </ThemeProvider>
   );
 };

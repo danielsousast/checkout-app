@@ -1,5 +1,6 @@
 import React from 'react';
-import {CartItem} from '../../../application/http/types';
+import {CartItem} from '../../../application/http/models/CartItem';
+
 import {ProductCartPrice, ProductTitle} from '../Typography';
 import {
   ButtonLeft,

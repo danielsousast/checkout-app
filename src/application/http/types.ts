@@ -1,3 +1,4 @@
+import {CartItem} from './models/CartItem';
 import {Product} from './models/Product';
 
 export interface IProductRequet {
@@ -9,8 +10,4 @@ export interface IProductRequet {
 export interface ICartRequet {
   getUserCart(): Promise<CartItem[] | undefined>;
   saveCart(params: CartItem[]): Promise<void>;
-}
-
-export interface CartItem extends Product {
-  quantity: number;
 }

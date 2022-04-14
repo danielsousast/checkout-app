@@ -1,5 +1,6 @@
 import {AsyncStorageStatic} from '@react-native-async-storage/async-storage';
-import {CartItem, ICartRequet} from './types';
+import {CartItem} from './models/CartItem';
+import {ICartRequet} from './types';
 
 export class CartRequet implements ICartRequet {
   url = '/carts';

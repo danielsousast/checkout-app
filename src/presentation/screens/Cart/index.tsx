@@ -62,7 +62,7 @@ const Cart: React.FC = () => {
         <HeaderTitle>CARRINHO</HeaderTitle>
       </Header>
       <SectionTitle>Meu carrinho</SectionTitle>
-      <List data={cartProducts} renderItem={renderItem} />
+      {!isEmpty && <List data={cartProducts} renderItem={renderItem} />}
       {!isEmpty && (
         <TotalWrapper>
           <ProductTitle>Total</ProductTitle>

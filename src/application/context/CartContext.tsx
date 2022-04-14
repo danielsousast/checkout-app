@@ -8,8 +8,8 @@ import React, {
   useEffect,
 } from 'react';
 import {CartRequet} from '../http/cart';
+import {CartItem} from '../http/models/CartItem';
 import {Product} from '../http/models/Product';
-import {CartItem} from '../http/types';
 
 interface CartContext {
   cartProducts: CartItem[];
@@ -27,7 +27,6 @@ const CartProvider: React.FC = ({children}) => {
   useEffect(() => {
     async function loadCartProducts(): Promise<void> {
       const storagedCartProducts = await cartRequest.getUserCart();
-
       if (storagedCartProducts) {
         setCartProducts([...storagedCartProducts]);
       }

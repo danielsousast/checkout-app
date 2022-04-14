@@ -12,7 +12,10 @@ import {ScreenTitle, SectionTitle} from '../../components/Typography';
 import {productsSlice} from '../../../application/redux/reducers';
 import {useCart} from '../../../application/context/CartContext';
 import useCategories from '../../../application/hooks/useCategories';
-import {getProductsSelector} from '../../../application/redux/selectors';
+import {
+  getProductsLoadingSelector,
+  getProductsSelector,
+} from '../../../application/redux/selectors';
 import {DEFAULT_CATEGORY} from '../../../constants';
 import {
   CategoryScroll,
@@ -24,6 +27,7 @@ import {
   ProductsWrapper,
   ProductsScroll,
 } from './styles';
+import NewSectionSkeleton from '../../components/Skeletons/NewSection';
 
 const Home: React.FC = () => {
   const safe = useSafeAreaInsets().bottom;
@@ -35,6 +39,7 @@ const Home: React.FC = () => {
   const [selectedCartegory, setSelectedCartegory] =
     useState<string>(DEFAULT_CATEGORY);
   const products = useSelector(getProductsSelector);
+  const loading = useSelector(getProductsLoadingSelector);
 
   useEffect(() => {
     dispatch(productsSlice.actions.getProductsRequest(selectedCartegory));
@@ -76,6 +81,7 @@ const Home: React.FC = () => {
         </ScrollWrapper>
         <SectionTitle>{i18n.t('app.news')}</SectionTitle>
         <ScrollWrapper>
+          {loading && <NewSectionSkeleton show={loading} />}
           <HightlightScroll>
             {products?.slice(0, 5).map(product => (
               <HightlightCard
@@ -87,7 +93,7 @@ const Home: React.FC = () => {
           </HightlightScroll>
         </ScrollWrapper>
         <SectionTitle>{i18n.t('app.listing')}</SectionTitle>
-
+        {loading && <NewSectionSkeleton show={loading} />}
         <ProductsScroll>
           <ProductsWrapper>
             {products?.map((product, index) => (
@@ -103,7 +109,7 @@ const Home: React.FC = () => {
       </Container>
       {cartProducts?.length > 0 && (
         <BottonSheet
-          title={i18n.t('app.all_products')}
+          title={i18n.t('app.go_to_cart')}
           onPress={onGoToCardPress}
         />
       )}

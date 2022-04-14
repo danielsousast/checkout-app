@@ -11,3 +11,8 @@ export const getProductsSelector = createSelector(
   appState,
   state => state?.products,
 );
+
+export const getProductsLoadingSelector = createSelector(
+  appState,
+  state => state?.loading,
+);

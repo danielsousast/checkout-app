@@ -1,4 +1,5 @@
 import React from 'react';
+import {Product} from '../../http/models/Product';
 import AddButton from '../AddButton';
 import {
   ProductDescription,
@@ -9,25 +10,27 @@ import {
 import {Container, Image, PriceWrapper} from './styles';
 
 type HightlightCardProps = {
+  data: Product;
   onAddToCartPress: () => void;
 };
 
-const HightlightCard: React.FC<HightlightCardProps> = ({onAddToCartPress}) => {
+const HightlightCard: React.FC<HightlightCardProps> = ({
+  onAddToCartPress,
+  data,
+}) => {
   return (
     <Container>
       <Image
         resizeMode="stretch"
         source={{
-          uri: 'https://img.ltwebstatic.com/images3_pi/2021/10/08/1633665790e29d3e7c024367700ddbe07d4679a284_thumbnail_900x.webp',
+          uri: data.image,
         }}
       />
-      <ProductTag>mens clothing</ProductTag>
-      <ProductTitle>Fjallraven - Foldsack</ProductTitle>
-      <ProductDescription>
-        Your perfect pack for everyday use and walks in the forest.
-      </ProductDescription>
+      <ProductTag>{data.category}</ProductTag>
+      <ProductTitle>{data.title}</ProductTitle>
+      <ProductDescription>{data.description}</ProductDescription>
       <PriceWrapper>
-        <ProductPrice>10995</ProductPrice>
+        <ProductPrice>${data.price}</ProductPrice>
         <AddButton onPress={onAddToCartPress} />
       </PriceWrapper>
     </Container>

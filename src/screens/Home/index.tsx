@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {FlatGrid} from 'react-native-super-grid';
 import BottonSheet from '../../components/BottonSheet';
 import CartIcon from '../../components/CartIcon';
@@ -7,6 +8,8 @@ import Chip from '../../components/Chip';
 import HightlightCard from '../../components/HightlightCard';
 import ListCard from '../../components/ListCard';
 import {ScreenTitle, SectionTitle} from '../../components/Typography';
+import {productsSlice} from '../../redux/reducers';
+import {getProductsSelector} from '../../redux/selectors';
 import {
   CategoryScroll,
   Container,
@@ -14,22 +17,24 @@ import {
   CategoryTitle,
   ScrollWrapper,
   HightlightScroll,
-  ProductScroll,
 } from './styles';
+import {Dimensions} from 'react-native';
 
-const categories = [
-  {id: '1', name: 'Categoria 1', checked: true},
-  {id: '2', name: 'Categoria 1', checked: true},
-  {id: '3', name: 'Categoria 1', checked: true},
-  {id: '4', name: 'Categoria 1', checked: true},
-  {id: '1', name: 'Categoria 1', checked: true},
-  {id: '5', name: 'Categoria 1', checked: true},
-];
+const {width} = Dimensions.get('window');
 
 const Home: React.FC = () => {
   const {navigate} = useNavigation();
-  function renderItem({_item}: any) {
-    return <ListCard onAddButtonPress={() => {}} />;
+  const dispatch = useDispatch();
+
+  const products = useSelector(getProductsSelector);
+
+  useEffect(() => {
+    dispatch(productsSlice.actions.getProductsRequest());
+  }, [dispatch]);
+
+  console.log(products);
+  function renderItem({item}: any) {
+    return <ListCard onAddButtonPress={() => {}} data={item} />;
   }
 
   function onGoToCardPress() {
@@ -46,30 +51,30 @@ const Home: React.FC = () => {
         <ScrollWrapper>
           <CategoryTitle>FILTRAR POR CATEGORIA</CategoryTitle>
           <CategoryScroll>
-            {categories.map((category, index) => (
-              <Chip key={category.id} checked={index === 0} />
+            {products?.map((product, index) => (
+              <Chip key={product.id} checked={index === 0} />
             ))}
           </CategoryScroll>
         </ScrollWrapper>
         <SectionTitle>Novidades</SectionTitle>
         <ScrollWrapper>
           <HightlightScroll>
-            {categories.map(category => (
-              <HightlightCard key={category.id} onAddToCartPress={() => {}} />
+            {products?.slice(0, 5).map(product => (
+              <HightlightCard
+                key={product.id}
+                data={product}
+                onAddToCartPress={() => {}}
+              />
             ))}
           </HightlightScroll>
         </ScrollWrapper>
         <SectionTitle>Listagem</SectionTitle>
         <ScrollWrapper>
-          <ProductScroll horizontal>
-            {categories.map(_category => (
-              <FlatGrid
-                itemDimension={130}
-                data={[1, 2, 3, 4, 5, 6]}
-                renderItem={renderItem}
-              />
-            ))}
-          </ProductScroll>
+          <FlatGrid
+            itemDimension={width / 2 - 32}
+            data={products as any}
+            renderItem={renderItem}
+          />
         </ScrollWrapper>
       </Container>
       <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />

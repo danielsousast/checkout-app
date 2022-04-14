@@ -13,13 +13,17 @@ export const SectionTitle = styled.Text`
   margin-left: 16px;
 `;
 
-export const ProductTitle = styled.Text`
+export const ProductTitle = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
 `;
 
-export const ProductDescription = styled.Text`
+export const ProductDescription = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-style: normal;
   font-weight: 500;
   font-size: 10px;

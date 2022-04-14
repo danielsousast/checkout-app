@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {FlatGrid} from 'react-native-super-grid';
 import BottonSheet from '../../components/BottonSheet';
 import CartIcon from '../../components/CartIcon';
 import Chip from '../../components/Chip';
@@ -17,13 +16,12 @@ import {
   CategoryTitle,
   ScrollWrapper,
   HightlightScroll,
+  ProductsWrapper,
+  ProductsScroll,
 } from './styles';
-import {Dimensions} from 'react-native';
 import useCategories from '../../../application/hooks/useCategories';
 import {DEFAULT_CATEGORY} from '../../../constants';
 import {useCart} from '../../../application/context/CartContext';
-
-const {width} = Dimensions.get('window');
 
 const Home: React.FC = () => {
   const {navigate} = useNavigation();
@@ -38,10 +36,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     dispatch(productsSlice.actions.getProductsRequest(selectedCartegory));
   }, [dispatch, selectedCartegory]);
-
-  function renderItem({item}: any) {
-    return <ListCard onAddButtonPress={addToCart} data={item} />;
-  }
 
   function onGoToCardPress() {
     navigate('Cart' as any);
@@ -90,15 +84,19 @@ const Home: React.FC = () => {
           </HightlightScroll>
         </ScrollWrapper>
         <SectionTitle>Listagem</SectionTitle>
-        <ScrollWrapper>
-          {products && (
-            <FlatGrid
-              itemDimension={width / 2 - 32}
-              data={products as any}
-              renderItem={renderItem}
-            />
-          )}
-        </ScrollWrapper>
+
+        <ProductsScroll>
+          <ProductsWrapper>
+            {products?.map((product, index) => (
+              <ListCard
+                key={product.id}
+                onAddButtonPress={addToCart}
+                data={product}
+                withMargin={index === 0 || index % 2 === 0}
+              />
+            ))}
+          </ProductsWrapper>
+        </ProductsScroll>
       </Container>
       {cartProducts?.length > 0 && (
         <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />

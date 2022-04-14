@@ -6,15 +6,20 @@ import {Container, Image, PriceWrapper} from './styles';
 
 type AddButtonProps = {
   data: Product;
+  withMargin?: boolean;
   onAddButtonPress: (data: Product) => void;
 };
 
-const ListCard: React.FC<AddButtonProps> = ({onAddButtonPress, data}) => {
+const ListCard: React.FC<AddButtonProps> = ({
+  onAddButtonPress,
+  data,
+  withMargin = false,
+}) => {
   function _onAddButtonPress() {
     onAddButtonPress && onAddButtonPress(data);
   }
   return (
-    <Container>
+    <Container withMargin={withMargin}>
       <Image
         resizeMode="stretch"
         source={{

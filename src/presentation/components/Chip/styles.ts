@@ -8,7 +8,7 @@ export const Container = styled.TouchableOpacity<ChipProps>`
   flex-direction: row;
   align-items: center;
   padding: 6px 10px;
-  border: 1px solid #ebebed;
+  border: 1px solid ${({theme}) => theme.colors.border};
   height: 21px;
   border-radius: 8px;
   margin-right: 12px;
@@ -16,6 +16,7 @@ export const Container = styled.TouchableOpacity<ChipProps>`
     checked &&
     css`
       background-color: ${theme.colors.primary};
+      border: 1px solid ${theme.colors.primary};
     `}
 `;
 

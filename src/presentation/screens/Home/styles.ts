@@ -50,11 +50,17 @@ export const HightlightScroll = styled.ScrollView.attrs({
   margin-bottom: 28px;
 `;
 
-export const ProductScroll = styled.ScrollView.attrs({
+export const ProductsWrapper = styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+`;
+
+export const ProductsScroll = styled.ScrollView.attrs({
   contentContainerStyle: {
-    flexGrow: 1,
+    flex: 1,
     padding: 16,
   },
-})`
-  width: 100%;
-`;
+  showsHorizontalScrollIndicator: false,
+})``;

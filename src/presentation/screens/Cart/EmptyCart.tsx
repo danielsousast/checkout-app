@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import BagIcon from '../../assets/big-bag.svg';
+import BagIcon from '../../../assets/big-bag.svg';
 import Button from '../../components/Button';
 import {EmptyDescription, EmptyWrapper} from './styles';
 

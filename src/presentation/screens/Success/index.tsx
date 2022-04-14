@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTheme} from 'styled-components/native';
-import ConfirmImage from '../../assets/confirm.svg';
+import ConfirmImage from '../../../assets/confirm.svg';
 import BottomSheet from '../../components/BottonSheet';
 import {Container, Description, Title} from './styles';
 

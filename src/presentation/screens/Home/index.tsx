@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {Fragment, useEffect} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {FlatGrid} from 'react-native-super-grid';
 import BottonSheet from '../../components/BottonSheet';
@@ -8,8 +8,8 @@ import Chip from '../../components/Chip';
 import HightlightCard from '../../components/HightlightCard';
 import ListCard from '../../components/ListCard';
 import {ScreenTitle, SectionTitle} from '../../components/Typography';
-import {productsSlice} from '../../redux/reducers';
-import {getProductsSelector} from '../../redux/selectors';
+import {productsSlice} from '../../../application/redux/reducers';
+import {getProductsSelector} from '../../../application/redux/selectors';
 import {
   CategoryScroll,
   Container,
@@ -19,26 +19,34 @@ import {
   HightlightScroll,
 } from './styles';
 import {Dimensions} from 'react-native';
+import useCategories from '../../../application/hooks/useCategories';
+import {DEFAULT_CATEGORY} from '../../../constants';
 
 const {width} = Dimensions.get('window');
 
 const Home: React.FC = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
+  const {categories} = useCategories();
 
+  const [selectedCartegory, setSelectedCartegory] =
+    useState<string>(DEFAULT_CATEGORY);
   const products = useSelector(getProductsSelector);
 
   useEffect(() => {
-    dispatch(productsSlice.actions.getProductsRequest());
-  }, [dispatch]);
+    dispatch(productsSlice.actions.getProductsRequest(selectedCartegory));
+  }, [dispatch, selectedCartegory]);
 
-  console.log(products);
   function renderItem({item}: any) {
     return <ListCard onAddButtonPress={() => {}} data={item} />;
   }
 
   function onGoToCardPress() {
     navigate('Cart' as any);
+  }
+
+  function onCategoryPress(category: string) {
+    setSelectedCartegory(category);
   }
 
   return (
@@ -51,8 +59,19 @@ const Home: React.FC = () => {
         <ScrollWrapper>
           <CategoryTitle>FILTRAR POR CATEGORIA</CategoryTitle>
           <CategoryScroll>
-            {products?.map((product, index) => (
-              <Chip key={product.id} checked={index === 0} />
+            <Chip
+              key={DEFAULT_CATEGORY}
+              checked={DEFAULT_CATEGORY === selectedCartegory}
+              category={DEFAULT_CATEGORY}
+              onPress={onCategoryPress}
+            />
+            {categories?.map(category => (
+              <Chip
+                key={category}
+                checked={category === selectedCartegory}
+                category={category}
+                onPress={onCategoryPress}
+              />
             ))}
           </CategoryScroll>
         </ScrollWrapper>
@@ -70,11 +89,13 @@ const Home: React.FC = () => {
         </ScrollWrapper>
         <SectionTitle>Listagem</SectionTitle>
         <ScrollWrapper>
-          <FlatGrid
-            itemDimension={width / 2 - 32}
-            data={products as any}
-            renderItem={renderItem}
-          />
+          {products && (
+            <FlatGrid
+              itemDimension={width / 2 - 32}
+              data={products as any}
+              renderItem={renderItem}
+            />
+          )}
         </ScrollWrapper>
       </Container>
       <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />

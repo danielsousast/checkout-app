@@ -1,5 +1,5 @@
 import React from 'react';
-import BagIcon from '../../assets/bag.svg';
+import BagIcon from '../../../assets/bag.svg';
 import {Container, Badge, BadgeText} from './style';
 
 type CartIconProps = {

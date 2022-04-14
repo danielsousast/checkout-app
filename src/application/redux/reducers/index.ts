@@ -17,7 +17,7 @@ export const productsSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    getProductsRequest: state => {
+    getProductsRequest: (state, {}: PayloadAction<string>) => {
       state.loading = true;
     },
     getProductsSuccess: (state, {payload}: PayloadAction<any>) => {
@@ -25,17 +25,6 @@ export const productsSlice = createSlice({
       state.loading = false;
     },
     getProductsError: state => {
-      state.error = true;
-      state.loading = false;
-    },
-    getCategoriesRequest: (state, _action: PayloadAction<any>) => {
-      state.loading = true;
-    },
-    getCategoriesSuccess: (state, {payload}: PayloadAction<any>) => {
-      state.products = payload;
-      state.loading = false;
-    },
-    getCategoriesError: state => {
       state.error = true;
       state.loading = false;
     },

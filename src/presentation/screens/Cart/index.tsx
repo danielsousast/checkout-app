@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {useTheme} from 'styled-components/native';
 import BittonSheet from '../../components/BottonSheet';
 import IntemCart from '../../components/IntemCart';
 import {ProductTitle, SectionTitle} from '../../components/Typography';
-import theme from '../../global/theme';
 import EmptyCart from './EmptyCart';
 import {
   BackButton,
@@ -16,6 +16,7 @@ import {
 } from './styles';
 
 const Cart: React.FC = () => {
+  const theme = useTheme();
   const {goBack, navigate} = useNavigation();
   const isEmpty = false;
 

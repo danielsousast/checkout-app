@@ -1,5 +1,5 @@
 import React from 'react';
-import {Product} from '../../http/models/Product';
+import {Product} from '../../../application/http/models/Product';
 import AddButton from '../AddButton';
 import {
   ProductDescription,

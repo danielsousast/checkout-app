@@ -50,7 +50,7 @@ const Home: React.FC = () => {
 
   return (
     <Fragment>
-      <Container>
+      <Container withPadding={cartProducts?.length > 0}>
         <Header safe={safe}>
           <ScreenTitle>{i18n.t('app.products')}</ScreenTitle>
           <CartIcon onPress={onGoToCardPress} />

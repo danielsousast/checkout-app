@@ -7,7 +7,7 @@ import {
   ProductTag,
   ProductTitle,
 } from '../Typography';
-import {Container, Image, PriceWrapper} from './styles';
+import {Container, Image, ImageWrapper, PriceWrapper} from './styles';
 
 type HightlightCardProps = {
   data: Product;
@@ -23,12 +23,15 @@ const HightlightCard: React.FC<HightlightCardProps> = ({
   }
   return (
     <Container>
-      <Image
-        resizeMode="stretch"
-        source={{
-          uri: data.image,
-        }}
-      />
+      <ImageWrapper>
+        <Image
+          resizeMode="stretch"
+          source={{
+            uri: data.image,
+          }}
+        />
+      </ImageWrapper>
+
       <ProductTag>{data.category}</ProductTag>
       <ProductTitle>{data.title}</ProductTitle>
       <ProductDescription>{data.description}</ProductDescription>

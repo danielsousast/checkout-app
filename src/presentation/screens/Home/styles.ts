@@ -4,9 +4,18 @@ type HeaderProps = {
   safe: number;
 };
 
-export const Container = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false,
-})`
+type ContainerProps = {
+  withPadding?: boolean;
+};
+
+export const Container = styled.ScrollView.attrs(
+  ({withPadding}: ContainerProps) => ({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: {
+      paddingBottom: withPadding ? 100 : 0,
+    },
+  }),
+)<ContainerProps>`
   flex: 1;
   background-color: ${({theme}) => theme.colors.background};
 `;

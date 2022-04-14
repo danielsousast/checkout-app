@@ -9,6 +9,7 @@ import {
   Container,
   Content,
   Image,
+  ImageWrapper,
   MinusIcon,
   PlusIcon,
   Title,
@@ -34,12 +35,14 @@ const IntemCart: React.FC<ItemCartProps> = ({
   }
   return (
     <Container>
-      <Image
-        resizeMode="stretch"
-        source={{
-          uri: data.image,
-        }}
-      />
+      <ImageWrapper>
+        <Image
+          resizeMode="stretch"
+          source={{
+            uri: data.image,
+          }}
+        />
+      </ImageWrapper>
       <Content>
         <Title>{data.title}</Title>
         <ProductCartPrice>{`${data.quantity} x ${data.price}`}</ProductCartPrice>

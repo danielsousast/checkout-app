@@ -9,13 +9,9 @@ export interface IProductRequet {
 
 export interface ICartRequet {
   getUserCart(): Promise<UserCart>;
-  addCart(params: AddCartParams): Promise<void>;
-  updateCart(params: any): Promise<void>;
+  saveCart(params: CartItem[]): Promise<void>;
 }
 
-type AddCartParams = {
-  products: {
-    productId: number;
-    quantity: number;
-  };
-};
+export interface CartItem extends Product {
+  quantity: number;
+}

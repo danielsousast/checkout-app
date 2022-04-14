@@ -1,29 +1,20 @@
-import {AxiosInstance} from 'axios';
-import {ICartRequet} from './types';
+import {AsyncStorageStatic} from '@react-native-async-storage/async-storage';
+import {CartItem, ICartRequet} from './types';
 
 export class CartRequet implements ICartRequet {
   url = '/carts';
-  constructor(readonly api: AxiosInstance) {
-    this.api = api;
+  constructor(readonly repository: AsyncStorageStatic) {
+    this.repository = repository;
   }
   async getUserCart(): Promise<any> {
-    const response = await this.api.get(`${this.url}/user/2`);
-    return response.data;
+    const response = await this.repository.getItem('@checkout/cart');
+    if (response) {
+      return JSON.stringify(response);
+    }
+    return [];
   }
 
-  async addCart(params: any): Promise<void> {
-    await this.api.post(`${this.url}/user/${params.userId}`, {
-      userId: params.userId,
-      date: params.date,
-      products: params.products,
-    });
-  }
-
-  async updateCart(params: any): Promise<void> {
-    await this.api.patch(`${this.url}/${params.cartId}`, {
-      userId: params.userId,
-      date: params.date,
-      products: params.products,
-    });
+  async saveCart(products: CartItem[]): Promise<void> {
+    await this.repository.setItem('@checkout/cart', JSON.stringify(products));
   }
 }

@@ -3,19 +3,23 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 EntypoIcon.loadFont();
 
+type StyledProps = {
+  safe?: number;
+};
+
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding-top: 50px;
   border-radius: 12px;
   background-color: ${({theme}) => theme.colors.background};
 `;
 
-export const Header = styled.View`
+export const Header = styled.View<StyledProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  margin-top: ${({safe}) => (safe ? 16 : 24)}px;
 `;
 
 export const HeaderTitle = styled.Text`
@@ -24,6 +28,8 @@ export const HeaderTitle = styled.Text`
   font-size: 12px;
   line-height: 14px;
   text-align: center;
+  text-transform: uppercase;
+  color: ${({theme}) => theme.colors.text};
 `;
 
 export const BackButton = styled.TouchableOpacity`
@@ -47,16 +53,16 @@ export const List = styled.FlatList.attrs({
     padding: 16,
   },
 })`
-  margin-top: 40px;
+  margin-top: 24px;
 `;
 
-export const TotalWrapper = styled.View`
+export const TotalWrapper = styled.View<StyledProps>`
   flex-direction: row;
   align-items: center;
   border: 1px solid #ddd;
   padding: 10px 16px;
   justify-content: space-between;
-  margin-bottom: 80px;
+  margin-bottom: ${({safe}) => (safe ? 20 : 30)}%;
 `;
 
 export const EmptyWrapper = styled.View`

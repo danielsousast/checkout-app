@@ -1,7 +1,7 @@
 import React from 'react';
 import {CartItem} from '../../../application/http/models/CartItem';
 
-import {ProductCartPrice, ProductTitle} from '../Typography';
+import {ProductCartPrice} from '../Typography';
 import {
   ButtonLeft,
   ButtonRight,
@@ -11,6 +11,7 @@ import {
   Image,
   MinusIcon,
   PlusIcon,
+  Title,
 } from './styles';
 
 type ItemCartProps = {
@@ -40,7 +41,7 @@ const IntemCart: React.FC<ItemCartProps> = ({
         }}
       />
       <Content>
-        <ProductTitle>{data.title}</ProductTitle>
+        <Title>{data.title}</Title>
         <ProductCartPrice>{`${data.quantity} x ${data.price}`}</ProductCartPrice>
       </Content>
       <ButtonsWrapper>

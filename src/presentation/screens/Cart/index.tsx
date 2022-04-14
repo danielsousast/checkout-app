@@ -1,11 +1,15 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'styled-components/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useCart} from '../../../application/context/CartContext';
-import BittonSheet from '../../components/BottonSheet';
-import IntemCart from '../../components/IntemCart';
-import {ProductTitle, SectionTitle} from '../../components/Typography';
+import i18n from '../../../config/translation';
+
 import EmptyCart from './EmptyCart';
+import IntemCart from '../../components/IntemCart';
+import BittonSheet from '../../components/BottonSheet';
+import {ProductTitle, SectionTitle} from '../../components/Typography';
+
 import {
   BackButton,
   BackIcon,
@@ -18,20 +22,13 @@ import {
 
 const Cart: React.FC = () => {
   const theme = useTheme();
+  const safe = useSafeAreaInsets().bottom;
   const {goBack, navigate} = useNavigation();
   const {cartProducts, increment, decrement} = useCart();
   const isEmpty = cartProducts?.length === 0;
 
   function onFinishSell() {
     navigate('Success' as any);
-  }
-
-  function onIncrement(id: number): void {
-    increment(id);
-  }
-
-  function onDecrement(id: number): void {
-    decrement(id);
   }
 
   const totalPrice = React.useMemo(() => {
@@ -48,31 +45,31 @@ const Cart: React.FC = () => {
     return (
       <IntemCart
         data={item}
-        onIncrementPress={onIncrement}
-        onDecrementPress={onDecrement}
+        onIncrementPress={increment}
+        onDecrementPress={decrement}
       />
     );
   }
   return (
     <Container>
-      <Header>
+      <Header safe={safe}>
         <BackButton onPress={goBack}>
           <BackIcon />
         </BackButton>
-        <HeaderTitle>CARRINHO</HeaderTitle>
+        <HeaderTitle>{i18n.t('app.cart')}</HeaderTitle>
       </Header>
-      <SectionTitle>Meu carrinho</SectionTitle>
+      <SectionTitle>{i18n.t('app.my_cart')}</SectionTitle>
       {!isEmpty && <List data={cartProducts} renderItem={renderItem} />}
       {!isEmpty && (
-        <TotalWrapper>
-          <ProductTitle>Total</ProductTitle>
+        <TotalWrapper safe={safe}>
+          <ProductTitle>{i18n.t('app.total')}</ProductTitle>
           <ProductTitle>{totalPrice}</ProductTitle>
         </TotalWrapper>
       )}
-      {isEmpty && <EmptyCart onPress={function (): void {}} />}
+      {isEmpty && <EmptyCart onPress={goBack} />}
       {!isEmpty && (
         <BittonSheet
-          title="FINALIZAR COMPRA"
+          title={i18n.t('app.finalize_purchase')}
           onPress={onFinishSell}
           bgColor={theme.colors.background}
           withShadow={false}

@@ -1,14 +1,19 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import BottonSheet from '../../components/BottonSheet';
-import CartIcon from '../../components/CartIcon';
+import {useNavigation} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import i18n from '../../../config/translation';
 import Chip from '../../components/Chip';
-import HightlightCard from '../../components/HightlightCard';
+import CartIcon from '../../components/CartIcon';
 import ListCard from '../../components/ListCard';
+import BottonSheet from '../../components/BottonSheet';
+import HightlightCard from '../../components/HightlightCard';
 import {ScreenTitle, SectionTitle} from '../../components/Typography';
 import {productsSlice} from '../../../application/redux/reducers';
+import {useCart} from '../../../application/context/CartContext';
+import useCategories from '../../../application/hooks/useCategories';
 import {getProductsSelector} from '../../../application/redux/selectors';
+import {DEFAULT_CATEGORY} from '../../../constants';
 import {
   CategoryScroll,
   Container,
@@ -19,11 +24,9 @@ import {
   ProductsWrapper,
   ProductsScroll,
 } from './styles';
-import useCategories from '../../../application/hooks/useCategories';
-import {DEFAULT_CATEGORY} from '../../../constants';
-import {useCart} from '../../../application/context/CartContext';
 
 const Home: React.FC = () => {
+  const safe = useSafeAreaInsets().bottom;
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
   const {categories} = useCategories();
@@ -48,12 +51,12 @@ const Home: React.FC = () => {
   return (
     <Fragment>
       <Container>
-        <Header>
-          <ScreenTitle>Produtos</ScreenTitle>
+        <Header safe={safe}>
+          <ScreenTitle>{i18n.t('app.products')}</ScreenTitle>
           <CartIcon onPress={onGoToCardPress} />
         </Header>
         <ScrollWrapper>
-          <CategoryTitle>FILTRAR POR CATEGORIA</CategoryTitle>
+          <CategoryTitle>{i18n.t('app.filter_by_category')}</CategoryTitle>
           <CategoryScroll>
             <Chip
               key={DEFAULT_CATEGORY}
@@ -71,7 +74,7 @@ const Home: React.FC = () => {
             ))}
           </CategoryScroll>
         </ScrollWrapper>
-        <SectionTitle>Novidades</SectionTitle>
+        <SectionTitle>{i18n.t('app.news')}</SectionTitle>
         <ScrollWrapper>
           <HightlightScroll>
             {products?.slice(0, 5).map(product => (
@@ -83,7 +86,7 @@ const Home: React.FC = () => {
             ))}
           </HightlightScroll>
         </ScrollWrapper>
-        <SectionTitle>Listagem</SectionTitle>
+        <SectionTitle>{i18n.t('app.listing')}</SectionTitle>
 
         <ProductsScroll>
           <ProductsWrapper>
@@ -99,7 +102,10 @@ const Home: React.FC = () => {
         </ProductsScroll>
       </Container>
       {cartProducts?.length > 0 && (
-        <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />
+        <BottonSheet
+          title={i18n.t('app.all_products')}
+          onPress={onGoToCardPress}
+        />
       )}
     </Fragment>
   );

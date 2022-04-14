@@ -59,3 +59,12 @@ export const MinusIcon = styled(EntypoIcon).attrs(({theme}) => ({
   size: 22,
   color: theme.colors.lightText,
 }))``;
+
+export const Title = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  width: 95%;
+`;

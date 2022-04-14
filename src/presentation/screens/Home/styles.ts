@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+type HeaderProps = {
+  safe: number;
+};
+
 export const Container = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
@@ -7,12 +11,12 @@ export const Container = styled.ScrollView.attrs({
   background-color: ${({theme}) => theme.colors.background};
 `;
 
-export const Header = styled.View`
+export const Header = styled.View<HeaderProps>`
   width: 100%;
   flex-direction: row;
   align-items: center;
   padding: 16px;
-  margin-top: 42px;
+  margin-top: ${({safe}) => (safe ? 42 : 8)}px;
   justify-content: space-between;
 `;
 
@@ -23,6 +27,7 @@ export const CategoryTitle = styled.Text`
   color: #6f6f6f;
   margin-left: 16px;
   margin-top: 16px;
+  text-transform: uppercase;
 `;
 
 export const ScrollWrapper = styled.View``;

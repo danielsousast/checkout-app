@@ -43,4 +43,5 @@ export const Text = styled.Text`
   font-weight: 700;
   font-size: 14px;
   color: ${({theme}) => theme.colors.white};
+  text-transform: uppercase;
 `;

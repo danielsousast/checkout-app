@@ -8,13 +8,14 @@ import React, {
   useEffect,
 } from 'react';
 import {CartRequet} from '../http/cart';
+import {Product} from '../http/models/Product';
 import {CartItem} from '../http/types';
 
 interface CartContext {
-  itens: CartItem[];
+  cartProducts: CartItem[];
   addToCart(item: Omit<CartItem, 'quantity'>): void;
-  increment(id: string): void;
-  decrement(id: string): void;
+  increment(id: number): void;
+  decrement(id: number): void;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -35,53 +36,60 @@ const CartProvider: React.FC = ({children}) => {
     loadCartProducts();
   }, []);
 
-  const addToCart = useCallback(async product => {
-    const productExists = cartProducts?.find(item => item.id === product.id);
+  const addToCart = useCallback(
+    async (product: Product) => {
+      const productExists = cartProducts?.find(item => item.id === product.id);
 
-    if (productExists) {
-      setCartProducts(
-        cartProducts?.map(item =>
-          item.id === product.id
-            ? {...product, quantity: item.quantity + 1}
-            : item,
-        ),
+      if (productExists) {
+        const newCartProducts = cartProducts?.map(item => {
+          if (item.id === product.id) {
+            return {...product, quantity: item.quantity + 1};
+          }
+          return item;
+        });
+        setCartProducts(newCartProducts);
+      } else {
+        setCartProducts([...cartProducts, {...product, quantity: 1}]);
+      }
+
+      await cartRequest.saveCart(cartProducts);
+    },
+    [cartProducts],
+  );
+
+  const increment = useCallback(
+    async productId => {
+      const newProducts = cartProducts.map(product =>
+        product.id === productId
+          ? {...product, quantity: product.quantity + 1}
+          : product,
       );
-    } else {
-      setCartProducts([...cartProducts, {...product, quantity: 1}]);
-    }
 
-    await cartRequest.saveCart(cartProducts);
-  }, []);
+      setCartProducts(newProducts);
 
-  const increment = useCallback(async productId => {
-    const newProducts = cartProducts.map(product =>
-      product.id === productId
-        ? {...product, quantity: product.quantity + 1}
-        : product,
-    );
+      await cartRequest.saveCart(cartProducts);
+    },
+    [cartProducts],
+  );
 
-    setCartProducts(newProducts);
-
-    await cartRequest.saveCart(cartProducts);
-  }, []);
-
-  const decrement = useCallback(async (productId: number) => {
-    const newProducts = cartProducts.map(product =>
-      product.id === productId
-        ? {...product, quantity: product.quantity - 1}
-        : product,
-    );
-
-    setCartProducts(newProducts);
-
-    await cartRequest.saveCart(cartProducts);
-  }, []);
+  const decrement = useCallback(
+    async (productId: number) => {
+      const newProducts = cartProducts.map(product => {
+        if (!(product.id === productId)) return product;
+        return {...product, quantity: product.quantity - 1};
+      });
+      const filteredProducts = newProducts.filter(item => item.quantity > 0);
+      setCartProducts(filteredProducts);
+      await cartRequest.saveCart(filteredProducts);
+    },
+    [cartProducts],
+  );
 
   const value = React.useMemo(
     () => ({addToCart, increment, decrement, cartProducts}),
     [cartProducts, addToCart, increment, decrement],
   );
-  //@ts-ignore
+
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 

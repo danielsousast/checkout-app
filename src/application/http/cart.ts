@@ -6,12 +6,13 @@ export class CartRequet implements ICartRequet {
   constructor(readonly repository: AsyncStorageStatic) {
     this.repository = repository;
   }
-  async getUserCart(): Promise<any> {
+  async getUserCart(): Promise<CartItem[] | undefined> {
     const response = await this.repository.getItem('@checkout/cart');
-    if (response) {
-      return JSON.stringify(response);
+    const jsonResponse = JSON.parse(response as string);
+    if (jsonResponse.length > 0) {
+      return jsonResponse;
     }
-    return [];
+    return undefined;
   }
 
   async saveCart(products: CartItem[]): Promise<void> {

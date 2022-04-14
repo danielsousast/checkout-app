@@ -1,5 +1,4 @@
 import {Product} from './models/Product';
-import {UserCart} from './models/UserCart';
 
 export interface IProductRequet {
   getAllProducts(category: string): Promise<Product[]>;
@@ -8,7 +7,7 @@ export interface IProductRequet {
 }
 
 export interface ICartRequet {
-  getUserCart(): Promise<UserCart>;
+  getUserCart(): Promise<CartItem[] | undefined>;
   saveCart(params: CartItem[]): Promise<void>;
 }
 

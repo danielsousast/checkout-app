@@ -21,6 +21,7 @@ import {
 import {Dimensions} from 'react-native';
 import useCategories from '../../../application/hooks/useCategories';
 import {DEFAULT_CATEGORY} from '../../../constants';
+import {useCart} from '../../../application/context/CartContext';
 
 const {width} = Dimensions.get('window');
 
@@ -28,6 +29,7 @@ const Home: React.FC = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
   const {categories} = useCategories();
+  const {addToCart, cartProducts} = useCart();
 
   const [selectedCartegory, setSelectedCartegory] =
     useState<string>(DEFAULT_CATEGORY);
@@ -38,7 +40,7 @@ const Home: React.FC = () => {
   }, [dispatch, selectedCartegory]);
 
   function renderItem({item}: any) {
-    return <ListCard onAddButtonPress={() => {}} data={item} />;
+    return <ListCard onAddButtonPress={addToCart} data={item} />;
   }
 
   function onGoToCardPress() {
@@ -82,7 +84,7 @@ const Home: React.FC = () => {
               <HightlightCard
                 key={product.id}
                 data={product}
-                onAddToCartPress={() => {}}
+                onAddToCartPress={addToCart}
               />
             ))}
           </HightlightScroll>
@@ -98,7 +100,9 @@ const Home: React.FC = () => {
           )}
         </ScrollWrapper>
       </Container>
-      <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />
+      {cartProducts?.length > 0 && (
+        <BottonSheet title="IR PARA O CARRINHO" onPress={onGoToCardPress} />
+      )}
     </Fragment>
   );
 };

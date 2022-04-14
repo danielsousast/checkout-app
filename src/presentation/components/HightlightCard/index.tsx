@@ -11,13 +11,16 @@ import {Container, Image, PriceWrapper} from './styles';
 
 type HightlightCardProps = {
   data: Product;
-  onAddToCartPress: () => void;
+  onAddToCartPress: (data: Product) => void;
 };
 
 const HightlightCard: React.FC<HightlightCardProps> = ({
   onAddToCartPress,
   data,
 }) => {
+  function _onAddToCartPress() {
+    onAddToCartPress && onAddToCartPress(data);
+  }
   return (
     <Container>
       <Image
@@ -31,7 +34,7 @@ const HightlightCard: React.FC<HightlightCardProps> = ({
       <ProductDescription>{data.description}</ProductDescription>
       <PriceWrapper>
         <ProductPrice>${data.price}</ProductPrice>
-        <AddButton onPress={onAddToCartPress} />
+        <AddButton onPress={_onAddToCartPress} />
       </PriceWrapper>
     </Container>
   );

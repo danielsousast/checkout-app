@@ -1,4 +1,5 @@
 import React from 'react';
+import {CartItem} from '../../../application/http/types';
 import {ProductCartPrice, ProductTitle} from '../Typography';
 import {
   ButtonLeft,
@@ -11,24 +12,41 @@ import {
   PlusIcon,
 } from './styles';
 
-const IntemCart: React.FC = () => {
+type ItemCartProps = {
+  data: CartItem;
+  onIncrementPress: (productId: number) => void;
+  onDecrementPress: (productId: number) => void;
+};
+
+const IntemCart: React.FC<ItemCartProps> = ({
+  data,
+  onIncrementPress,
+  onDecrementPress,
+}) => {
+  function _onDecrementPress() {
+    onDecrementPress && onDecrementPress(data.id);
+  }
+
+  function _onIncrementPress() {
+    onIncrementPress && onIncrementPress(data.id);
+  }
   return (
     <Container>
       <Image
         resizeMode="stretch"
         source={{
-          uri: 'https://img.ltwebstatic.com/images3_pi/2021/10/08/1633665790e29d3e7c024367700ddbe07d4679a284_thumbnail_900x.webp',
+          uri: data.image,
         }}
       />
       <Content>
-        <ProductTitle>Fjallraven - Foldsack</ProductTitle>
-        <ProductCartPrice>1x 209,00</ProductCartPrice>
+        <ProductTitle>{data.title}</ProductTitle>
+        <ProductCartPrice>{`${data.quantity} x ${data.price}`}</ProductCartPrice>
       </Content>
       <ButtonsWrapper>
-        <ButtonLeft>
+        <ButtonLeft onPress={_onDecrementPress}>
           <MinusIcon />
         </ButtonLeft>
-        <ButtonRight>
+        <ButtonRight onPress={_onIncrementPress}>
           <PlusIcon />
         </ButtonRight>
       </ButtonsWrapper>

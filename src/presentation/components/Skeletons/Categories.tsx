@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTheme} from 'styled-components/native';
 import SkeletonPlaceholder from './SkeletonLoader';
 
 type SkeletonProps = {
@@ -7,9 +8,13 @@ type SkeletonProps = {
 };
 
 const CategoriesSkeleton: React.FC<SkeletonProps> = ({show, children}) => {
+  const {colors} = useTheme();
+
   if (show) {
     return (
-      <SkeletonPlaceholder>
+      <SkeletonPlaceholder
+        backgroundColor={colors.skeletonBackground}
+        highlightColor={colors.skeletonHighlight}>
         <SkeletonPlaceholder.Item width={500} height={55} marginTop={0} />
       </SkeletonPlaceholder>
     );

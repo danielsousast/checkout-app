@@ -20,6 +20,7 @@ export const Image = styled.Image`
   height: 183px;
   width: 172px;
   border-radius: 10px;
+  background-color: #f8f2e1;
 `;
 
 export const PriceWrapper = styled.View`

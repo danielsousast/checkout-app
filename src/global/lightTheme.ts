@@ -16,5 +16,7 @@ export default {
     danger: '#FD746A',
     confirm: '#5A9ACF',
     primaryBackground: '#8775FE',
+    skeletonBackground: '#E1E9EE',
+    skeletonHighlight: '#F2F8FC',
   },
 };

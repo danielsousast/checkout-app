@@ -25,6 +25,7 @@ export const Image = styled.Image`
   height: 139px;
   width: ${CARD_WIDTH}px;
   border-radius: 10px;
+  background-color: #f8f2e1;
 `;
 
 export const PriceWrapper = styled.View`

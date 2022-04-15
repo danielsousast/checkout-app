@@ -19,16 +19,41 @@ import {
   List,
   TotalWrapper,
 } from './styles';
+import AlertModal from '../../components/AlertModal';
+import {CartItem} from '../../../application/http/models/CartItem';
 
 const Cart: React.FC = () => {
   const theme = useTheme();
   const safe = useSafeAreaInsets().bottom;
   const {goBack, navigate} = useNavigation();
   const {cartProducts, increment, decrement} = useCart();
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [selectedItem, setSelectedItem] = React.useState<number>(
+    null as unknown as number,
+  );
+
   const isEmpty = cartProducts?.length === 0;
 
   function onFinishSell() {
     navigate('Success' as any);
+  }
+
+  function closeModal() {
+    setShowAlert(false);
+  }
+
+  function handleDecrement(product: CartItem) {
+    if (product.quantity === 1) {
+      setSelectedItem(product.id);
+      setShowAlert(true);
+      return;
+    }
+
+    decrement(product.id);
+  }
+
+  function onConfirmRemove() {
+    decrement(selectedItem);
   }
 
   const totalPrice = React.useMemo(() => {
@@ -46,36 +71,45 @@ const Cart: React.FC = () => {
       <IntemCart
         data={item}
         onIncrementPress={increment}
-        onDecrementPress={decrement}
+        onDecrementPress={handleDecrement}
       />
     );
   }
+
   return (
-    <Container>
-      <Header safe={safe}>
-        <BackButton onPress={goBack}>
-          <BackIcon />
-        </BackButton>
-        <HeaderTitle>{i18n.t('app.cart')}</HeaderTitle>
-      </Header>
-      <SectionTitle>{i18n.t('app.my_cart')}</SectionTitle>
-      {!isEmpty && <List data={cartProducts} renderItem={renderItem} />}
-      {!isEmpty && (
-        <TotalWrapper safe={safe}>
-          <ProductTitle>{i18n.t('app.total')}</ProductTitle>
-          <ProductTitle>{totalPrice}</ProductTitle>
-        </TotalWrapper>
-      )}
-      {isEmpty && <EmptyCart onPress={goBack} />}
-      {!isEmpty && (
-        <BittonSheet
-          title={i18n.t('app.finalize_purchase')}
-          onPress={onFinishSell}
-          bgColor={theme.colors.background}
-          withShadow={false}
-        />
-      )}
-    </Container>
+    <>
+      <Container>
+        <Header safe={safe}>
+          <BackButton onPress={goBack}>
+            <BackIcon />
+          </BackButton>
+          <HeaderTitle>{i18n.t('app.cart')}</HeaderTitle>
+        </Header>
+        <SectionTitle>{i18n.t('app.my_cart')}</SectionTitle>
+        {!isEmpty && <List data={cartProducts} renderItem={renderItem} />}
+        {!isEmpty && (
+          <TotalWrapper safe={safe}>
+            <ProductTitle>{i18n.t('app.total')}</ProductTitle>
+            <ProductTitle>{totalPrice}</ProductTitle>
+          </TotalWrapper>
+        )}
+        {isEmpty && <EmptyCart onPress={goBack} />}
+        {!isEmpty && (
+          <BittonSheet
+            title={i18n.t('app.finalize_purchase')}
+            onPress={onFinishSell}
+            bgColor={theme.colors.background}
+            withShadow={false}
+          />
+        )}
+      </Container>
+      <AlertModal
+        visible={showAlert}
+        onBackdropPress={closeModal}
+        onDismiss={closeModal}
+        onConfirm={onConfirmRemove}
+      />
+    </>
   );
 };
 

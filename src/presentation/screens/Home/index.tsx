@@ -27,7 +27,8 @@ import {
   ProductsWrapper,
   ProductsScroll,
 } from './styles';
-import NewSectionSkeleton from '../../components/Skeletons/NewSection';
+import NewSectionSkeleton from '../../components/Skeletons/Sections';
+import CategoriesSkeleton from '../../components/Skeletons/Categories';
 
 const Home: React.FC = () => {
   const safe = useSafeAreaInsets().bottom;
@@ -62,50 +63,54 @@ const Home: React.FC = () => {
         </Header>
         <ScrollWrapper>
           <CategoryTitle>{i18n.t('app.filter_by_category')}</CategoryTitle>
-          <CategoryScroll>
-            <Chip
-              key={DEFAULT_CATEGORY}
-              checked={DEFAULT_CATEGORY === selectedCartegory}
-              category={DEFAULT_CATEGORY}
-              onPress={onCategoryPress}
-            />
-            {categories?.map(category => (
+          <CategoriesSkeleton show={loading}>
+            <CategoryScroll>
               <Chip
-                key={category}
-                checked={category === selectedCartegory}
-                category={category}
+                key={DEFAULT_CATEGORY}
+                checked={DEFAULT_CATEGORY === selectedCartegory}
+                category={DEFAULT_CATEGORY}
                 onPress={onCategoryPress}
               />
-            ))}
-          </CategoryScroll>
+              {categories?.map(category => (
+                <Chip
+                  key={category}
+                  checked={category === selectedCartegory}
+                  category={category}
+                  onPress={onCategoryPress}
+                />
+              ))}
+            </CategoryScroll>
+          </CategoriesSkeleton>
         </ScrollWrapper>
         <SectionTitle>{i18n.t('app.news')}</SectionTitle>
         <ScrollWrapper>
-          {loading && <NewSectionSkeleton show={loading} />}
-          <HightlightScroll>
-            {products?.slice(0, 5).map(product => (
-              <HightlightCard
-                key={product.id}
-                data={product}
-                onAddToCartPress={addToCart}
-              />
-            ))}
-          </HightlightScroll>
+          <NewSectionSkeleton show={loading}>
+            <HightlightScroll>
+              {products?.slice(0, 5).map(product => (
+                <HightlightCard
+                  key={product.id}
+                  data={product}
+                  onAddToCartPress={addToCart}
+                />
+              ))}
+            </HightlightScroll>
+          </NewSectionSkeleton>
         </ScrollWrapper>
         <SectionTitle>{i18n.t('app.listing')}</SectionTitle>
-        {loading && <NewSectionSkeleton show={loading} />}
-        <ProductsScroll>
-          <ProductsWrapper>
-            {products?.map((product, index) => (
-              <ListCard
-                key={product.id}
-                onAddButtonPress={addToCart}
-                data={product}
-                withMargin={index === 0 || index % 2 === 0}
-              />
-            ))}
-          </ProductsWrapper>
-        </ProductsScroll>
+        <NewSectionSkeleton show={loading}>
+          <ProductsScroll>
+            <ProductsWrapper>
+              {products?.map((product, index) => (
+                <ListCard
+                  key={product.id}
+                  onAddButtonPress={addToCart}
+                  data={product}
+                  withMargin={index === 0 || index % 2 === 0}
+                />
+              ))}
+            </ProductsWrapper>
+          </ProductsScroll>
+        </NewSectionSkeleton>
       </Container>
       {cartProducts?.length > 0 && (
         <BottonSheet

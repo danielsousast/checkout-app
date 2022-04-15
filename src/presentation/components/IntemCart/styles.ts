@@ -18,7 +18,6 @@ export const Content = styled.View`
 `;
 
 export const ImageWrapper = styled.View`
-  flex: 1;
   shadow-color: ${({theme}) => theme.colors.black};
   shadow-offset: 0px 6px;
   shadow-opacity: 0.1;

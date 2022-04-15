@@ -18,7 +18,7 @@ import {
 type ItemCartProps = {
   data: CartItem;
   onIncrementPress: (productId: number) => void;
-  onDecrementPress: (productId: number) => void;
+  onDecrementPress: (product: CartItem) => void;
 };
 
 const IntemCart: React.FC<ItemCartProps> = ({
@@ -27,7 +27,7 @@ const IntemCart: React.FC<ItemCartProps> = ({
   onDecrementPress,
 }) => {
   function _onDecrementPress() {
-    onDecrementPress && onDecrementPress(data.id);
+    onDecrementPress && onDecrementPress(data);
   }
 
   function _onIncrementPress() {

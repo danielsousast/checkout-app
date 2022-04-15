@@ -30,6 +30,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - React Hooks
 - Styled Components
 - React Navigation
+- Jest e Testing Library
 
 ## 💻 Projeto
 

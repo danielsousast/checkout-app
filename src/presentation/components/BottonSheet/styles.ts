@@ -18,7 +18,7 @@ export const Container = styled.View<ContainerProps>`
   padding: 0 16px;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
-  background-color: ${({theme, bgColor}) => bgColor || theme.colors.white};
+  background-color: ${({theme, bgColor}) => bgColor || theme.colors.shape};
   ${({withShadow}) =>
     withShadow &&
     css`

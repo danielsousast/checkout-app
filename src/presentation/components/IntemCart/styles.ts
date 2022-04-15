@@ -23,7 +23,8 @@ export const ImageWrapper = styled.View`
   shadow-opacity: 0.1;
   shadow-radius: 2.65px;
   elevation: 8;
-  border-radius: 12px;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 export const Image = styled.Image`
@@ -76,4 +77,5 @@ export const Title = styled.Text.attrs({
   font-size: 14px;
   line-height: 16px;
   width: 95%;
+  color: ${({theme}) => theme.colors.title};
 `;

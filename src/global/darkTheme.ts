@@ -1,0 +1,20 @@
+export default {
+  colors: {
+    primary: '#BEB5FF',
+    primaryLight: '#3f3f3f',
+    primaryDark: '#504DB6',
+    background: '#1B1B1B',
+    backgroundShape: '#EBEBED',
+    shape: '#2b2b2b',
+    black: '#000000',
+    title: '#FFFFFF',
+    black800: '#696969',
+    white: '#ffffff',
+    text: '#eeeeee',
+    lightText: '#B4B4B6',
+    border: '#cccccc',
+    danger: '#FD746A',
+    confirm: '#5A9ACF',
+    primaryBackground: '#2b2b2b',
+  },
+};

@@ -20,7 +20,7 @@ const Success: React.FC = () => {
       <BottomSheet
         title="PROSSEGUIR"
         withShadow={false}
-        bgColor={theme.colors.primary}
+        bgColor={theme.colors.primaryBackground}
         buttonColor={theme.colors.primaryDark}
         onPress={onContinuePress}
       />

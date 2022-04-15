@@ -12,7 +12,7 @@ export const Container = styled.View`
   width: 90%;
   border-radius: 10px;
   align-self: center;
-  background-color: ${({theme}) => theme.colors.white};
+  background-color: ${({theme}) => theme.colors.shape};
 `;
 
 export const Title = styled.Text`
@@ -21,7 +21,7 @@ export const Title = styled.Text`
   line-height: 17px;
   text-align: center;
   margin-top: 20px;
-  color: ${({theme}) => theme.colors.black800};
+  color: ${({theme}) => theme.colors.title};
 `;
 export const Description = styled.Text`
   width: 80%;

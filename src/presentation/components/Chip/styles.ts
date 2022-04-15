@@ -12,6 +12,7 @@ export const Container = styled.TouchableOpacity<ChipProps>`
   height: 21px;
   border-radius: 8px;
   margin-right: 12px;
+  background-color: ${({theme}) => theme.colors.backgroundShape};
   ${({checked, theme}) =>
     checked &&
     css`

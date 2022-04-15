@@ -19,4 +19,8 @@ export class CartRequet implements ICartRequet {
   async saveCart(products: CartItem[]): Promise<void> {
     await this.repository.setItem('@checkout/cart', JSON.stringify(products));
   }
+
+  async removeCart(): Promise<void> {
+    await this.repository.clear();
+  }
 }

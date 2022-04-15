@@ -26,7 +26,7 @@ const Cart: React.FC = () => {
   const theme = useTheme();
   const safe = useSafeAreaInsets().bottom;
   const {goBack, navigate} = useNavigation();
-  const {cartProducts, increment, decrement} = useCart();
+  const {cartProducts, increment, decrement, finish} = useCart();
   const [showAlert, setShowAlert] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState<number>(
     null as unknown as number,
@@ -35,6 +35,7 @@ const Cart: React.FC = () => {
   const isEmpty = cartProducts?.length === 0;
 
   function onFinishSell() {
+    finish();
     navigate('Success' as any);
   }
 

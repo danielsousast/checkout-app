@@ -59,7 +59,10 @@ export const List = styled.FlatList.attrs({
 export const TotalWrapper = styled.View<StyledProps>`
   flex-direction: row;
   align-items: center;
-  border: 1px solid #ddd;
+  border-top-width: 1px;
+  border-top-color: ${({theme}) => theme.colors.lightText};
+  border-bottom-width: 1px;
+  border-bottom-color: ${({theme}) => theme.colors.lightText};
   padding: 10px 16px;
   justify-content: space-between;
   margin-bottom: ${({safe}) => (safe ? 20 : 30)}%;

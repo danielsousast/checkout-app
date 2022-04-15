@@ -33,7 +33,7 @@ export const CategoryTitle = styled.Text`
   font-weight: 700;
   font-size: 8px;
   line-height: 9px;
-  color: #6f6f6f;
+  color: ${({theme}) => theme.colors.text};
   margin-left: 16px;
   margin-top: 16px;
   text-transform: uppercase;

@@ -8,18 +8,32 @@ export class ProductRequet implements IProductRequet {
     this.api = api;
   }
 
-  async getAllCategories(): Promise<string[]> {
-    const response = await this.api.get(`${this.url}/categories`);
-    return response.data;
+  async getAllCategories(): Promise<string[] | undefined> {
+    try {
+      const response = await this.api.get(`${this.url}/categories`);
+      return response.data;
+    } catch (error) {
+      return undefined;
+    }
   }
 
-  async getAllProducts(): Promise<Product[]> {
-    const response = await this.api.get(this.url);
-    return response.data;
+  async getAllProducts(): Promise<Product[] | undefined> {
+    try {
+      const response = await this.api.get(this.url);
+      return response.data;
+    } catch (error) {
+      return undefined;
+    }
   }
 
-  async getProductsInCategory(category: string): Promise<Product[]> {
-    const response = await this.api.get(`${this.url}/category/${category}`);
-    return response.data;
+  async getProductsInCategory(
+    category: string,
+  ): Promise<Product[] | undefined> {
+    try {
+      const response = await this.api.get(`${this.url}/category/${category}`);
+      return response.data;
+    } catch (error) {
+      return undefined;
+    }
   }
 }

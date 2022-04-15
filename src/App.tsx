@@ -1,4 +1,5 @@
 import './config/reactotron';
+import 'react-native-gesture-handler';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {ThemeProvider} from 'styled-components/native';

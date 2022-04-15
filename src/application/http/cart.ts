@@ -8,11 +8,14 @@ export class CartRequet implements ICartRequet {
     this.repository = repository;
   }
   async getUserCart(): Promise<CartItem[] | undefined> {
-    const response = await this.repository.getItem('@checkout/cart');
-    const jsonResponse = JSON.parse(response as string);
-    if (jsonResponse.length > 0) {
-      return jsonResponse;
-    }
+    try {
+      const response = await this.repository.getItem('@checkout/cart');
+      const jsonResponse = JSON.parse(response as string);
+      if (jsonResponse?.length > 0) {
+        return jsonResponse;
+      }
+    } catch (error) {}
+
     return undefined;
   }
 

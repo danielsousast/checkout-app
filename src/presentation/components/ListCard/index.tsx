@@ -19,7 +19,7 @@ const ListCard: React.FC<AddButtonProps> = ({
     onAddButtonPress && onAddButtonPress(data);
   }
   return (
-    <Container withMargin={withMargin}>
+    <Container withMargin={withMargin} testID="list-card">
       <Image
         resizeMode="stretch"
         source={{

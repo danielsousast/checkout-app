@@ -8,7 +8,7 @@ type AddButtonProps = {
 
 const AddButton: React.FC<AddButtonProps> = ({isAbsolute = false, onPress}) => {
   return (
-    <Container isAbsolute={isAbsolute} onPress={onPress}>
+    <Container isAbsolute={isAbsolute} onPress={onPress} testID="add-button">
       <Icon />
     </Container>
   );

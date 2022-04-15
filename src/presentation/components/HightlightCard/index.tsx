@@ -22,7 +22,7 @@ const HightlightCard: React.FC<HightlightCardProps> = ({
     onAddToCartPress && onAddToCartPress(data);
   }
   return (
-    <Container>
+    <Container testID="hightlight-card">
       <ImageWrapper>
         <Image
           resizeMode="stretch"
@@ -31,7 +31,6 @@ const HightlightCard: React.FC<HightlightCardProps> = ({
           }}
         />
       </ImageWrapper>
-
       <ProductTag>{data.category}</ProductTag>
       <ProductTitle>{data.title}</ProductTitle>
       <ProductDescription>{data.description}</ProductDescription>

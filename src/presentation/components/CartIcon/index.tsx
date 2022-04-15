@@ -1,20 +1,19 @@
 import React from 'react';
-import {useCart} from '../../../application/context/CartContext';
 import BagIcon from '../../../assets/bag.svg';
 import {Container, Badge, BadgeText} from './style';
 
 type CartIconProps = {
   onPress: () => void;
+  cartLength: number;
 };
 
-const CartIcon: React.FC<CartIconProps> = ({onPress}) => {
-  const {cartProducts} = useCart();
+const CartIcon: React.FC<CartIconProps> = ({onPress, cartLength}) => {
   return (
     <Container onPress={onPress}>
       <BagIcon />
-      {cartProducts?.length > 0 && (
-        <Badge>
-          <BadgeText>{cartProducts?.length}</BadgeText>
+      {cartLength > 0 && (
+        <Badge testID="cart-bdge">
+          <BadgeText>{cartLength}</BadgeText>
         </Badge>
       )}
     </Container>

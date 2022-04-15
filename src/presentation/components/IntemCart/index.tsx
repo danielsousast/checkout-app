@@ -34,7 +34,7 @@ const IntemCart: React.FC<ItemCartProps> = ({
     onIncrementPress && onIncrementPress(data.id);
   }
   return (
-    <Container>
+    <Container testID="item-cart">
       <ImageWrapper>
         <Image
           resizeMode="stretch"

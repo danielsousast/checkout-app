@@ -59,7 +59,10 @@ const Home: React.FC = () => {
       <Container withPadding={cartProducts?.length > 0}>
         <Header safe={safe}>
           <ScreenTitle>{i18n.t('app.products')}</ScreenTitle>
-          <CartIcon onPress={onGoToCardPress} />
+          <CartIcon
+            onPress={onGoToCardPress}
+            cartLength={cartProducts?.length}
+          />
         </Header>
         <ScrollWrapper>
           <CategoryTitle>{i18n.t('app.filter_by_category')}</CategoryTitle>

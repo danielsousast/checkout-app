@@ -48,11 +48,14 @@ const CartProvider: React.FC = ({children}) => {
           return item;
         });
         setCartProducts(newCartProducts);
+        await cartRequest.saveCart(newCartProducts);
       } else {
         setCartProducts([...cartProducts, {...product, quantity: 1}]);
+        await cartRequest.saveCart([
+          ...cartProducts,
+          {...product, quantity: 1},
+        ]);
       }
-
-      await cartRequest.saveCart(cartProducts);
     },
     [cartProducts],
   );

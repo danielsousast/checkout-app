@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({title, onPress}) => {
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} testID="button">
       <Text>{title}</Text>
     </Container>
   );

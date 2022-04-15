@@ -12,7 +12,7 @@ const Chip: React.FC<ChipProps> = ({checked = false, category, onPress}) => {
     onPress && onPress(category);
   }
   return (
-    <Container checked={checked} onPress={_onPress}>
+    <Container checked={checked} onPress={_onPress} testID="chip">
       <Text checked={checked}>{category}</Text>
     </Container>
   );

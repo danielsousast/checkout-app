@@ -49,6 +49,7 @@ export const ButtonText = styled.Text<ButtonText>`
   font-weight: 700;
   font-size: 10px;
   line-height: 12px;
+  text-transform: uppercase;
   color: ${({theme, isCancel}) =>
     isCancel ? theme.colors.danger : theme.colors.confirm};
 `;

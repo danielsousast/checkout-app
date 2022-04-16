@@ -12,7 +12,7 @@ export const getProductsSelector = createSelector(
   state => state?.products,
 );
 
-export const getProductsLoadingSelector = createSelector(
-  appState,
-  state => state?.loading,
-);
+export const getProductsMetada = createSelector(appState, state => ({
+  loading: state?.loading,
+  error: state?.error,
+}));

@@ -7,13 +7,16 @@ import Chip from '../../components/Chip';
 import CartIcon from '../../components/CartIcon';
 import ListCard from '../../components/ListCard';
 import BottonSheet from '../../components/BottonSheet';
+import ErrorMessage from '../../components/ErrorMessage';
 import HightlightCard from '../../components/HightlightCard';
+import NewSectionSkeleton from '../../components/Skeletons/Sections';
+import CategoriesSkeleton from '../../components/Skeletons/Categories';
 import {ScreenTitle, SectionTitle} from '../../components/Typography';
 import {productsSlice} from '../../../application/redux/reducers';
 import {useCart} from '../../../application/context/CartContext';
 import useCategories from '../../../application/hooks/useCategories';
 import {
-  getProductsLoadingSelector,
+  getProductsMetada,
   getProductsSelector,
 } from '../../../application/redux/selectors';
 import {DEFAULT_CATEGORY} from '../../../constants';
@@ -27,8 +30,6 @@ import {
   ProductsWrapper,
   ProductsScroll,
 } from './styles';
-import NewSectionSkeleton from '../../components/Skeletons/Sections';
-import CategoriesSkeleton from '../../components/Skeletons/Categories';
 
 const Home: React.FC = () => {
   const safe = useSafeAreaInsets().bottom;
@@ -40,7 +41,7 @@ const Home: React.FC = () => {
   const [selectedCartegory, setSelectedCartegory] =
     useState<string>(DEFAULT_CATEGORY);
   const products = useSelector(getProductsSelector);
-  const loading = useSelector(getProductsLoadingSelector);
+  const {loading, error} = useSelector(getProductsMetada);
 
   useEffect(() => {
     dispatch(productsSlice.actions.getProductsRequest(selectedCartegory));
@@ -54,16 +55,13 @@ const Home: React.FC = () => {
     setSelectedCartegory(category);
   }
 
-  return (
-    <Fragment>
-      <Container withPadding={cartProducts?.length > 0}>
-        <Header safe={safe}>
-          <ScreenTitle>{i18n.t('app.products')}</ScreenTitle>
-          <CartIcon
-            onPress={onGoToCardPress}
-            cartLength={cartProducts?.length}
-          />
-        </Header>
+  function renderContent() {
+    if (error && !loading) {
+      return <ErrorMessage />;
+    }
+
+    return (
+      <Fragment>
         <ScrollWrapper>
           <CategoryTitle>{i18n.t('app.filter_by_category')}</CategoryTitle>
           <CategoriesSkeleton show={loading}>
@@ -114,6 +112,21 @@ const Home: React.FC = () => {
             </ProductsWrapper>
           </ProductsScroll>
         </NewSectionSkeleton>
+      </Fragment>
+    );
+  }
+
+  return (
+    <Fragment>
+      <Container withPadding={cartProducts?.length > 0}>
+        <Header safe={safe}>
+          <ScreenTitle>{i18n.t('app.products')}</ScreenTitle>
+          <CartIcon
+            onPress={onGoToCardPress}
+            cartLength={cartProducts?.length}
+          />
+        </Header>
+        {renderContent()}
       </Container>
       {cartProducts?.length > 0 && (
         <BottonSheet

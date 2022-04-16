@@ -47,6 +47,7 @@ const CartProvider: React.FC = ({children}) => {
           }
           return item;
         });
+
         setCartProducts(newCartProducts);
         await cartRequest.saveCart(newCartProducts);
       } else {
@@ -69,7 +70,6 @@ const CartProvider: React.FC = ({children}) => {
       );
 
       setCartProducts(newProducts);
-
       await cartRequest.saveCart(cartProducts);
     },
     [cartProducts],
@@ -77,7 +77,6 @@ const CartProvider: React.FC = ({children}) => {
 
   const finish = useCallback(async () => {
     setCartProducts([]);
-
     await cartRequest.removeCart();
   }, []);
 

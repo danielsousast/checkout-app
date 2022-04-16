@@ -10,5 +10,12 @@ export default {
     finalize_purchase: 'Finalizar compra',
     total: 'Total',
     filter_by_category: 'Filtrar por categoria',
+    remove_item: 'Remover Item',
+    remove_item_confirm:
+      'Se deseja remover o item do carrinho clique em prosseguir.',
+    proceed: 'Prosseguir',
+    cancel: 'Cancelar',
+    no_products_on_cart: 'Nenhum item adicionado no carrinho',
+    error_occurred: 'Ocorreu um erro. Tente novamente mais tarde',
   },
 };
